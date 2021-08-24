@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h3>Amount to be paid: {{currency}} {{amount}}</h3>
+        </div>
+        <div class="card-body">
+            <button type="button" id="checkout-button" class="btn btn-success">Click to Pay</button>
+        </div>
+    </div>
+</div>
+<script src="https://js.stripe.com/v3"></script>
+<script>
+    var stripe = Stripe('{{key}}');
+    var checkoutButton = document.querySelector('#checkout-button');
+    checkoutButton.addEventListener('click', function () {
+      stripe.redirectToCheckout({ sessionId: "{{checkout_session_id}}" });
+    });
+</script>
+{% endblock %}

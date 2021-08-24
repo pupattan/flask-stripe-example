@@ -1,9 +1,9 @@
-#Stripe Flask Example 
+# Stripe Flask Example 
 
 This is a simple example how to integrate stripe payment system into a flask app
 
-####Install:
+#### Install:
 `pip install -r requirements.txt`
 
-####Run:
+#### Run:
 `python app.py`

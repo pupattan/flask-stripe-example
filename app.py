@@ -10,12 +10,20 @@ app.config['SECRET_KEY'] = 'this-is-a-stripe-application'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Provide your Stripe keys here
-stripe_keys = {
-  'secret_key': 'sk_test_51IeJGLSHmvGokQL19qZRF8VlTNPzXlLydDzQDJWJZ9WVWs8C80yfNlEXePl0gcwsbjoBJ4ATBYacmpI4WX9QS4au005PH5pfIv',
-  'publishable_key': 'pk_test_51IeJGLSHmvGokQL1rg8LJ6gO7ePdMq2cURl5TikqPFtrnbGavZFOGJ3QAaOXwXjGx51G3bsqmdVUcqvuQP4i6laP006VBgvPRW'
-}
-CURRENCY = 'inr'
-stripe.api_key = stripe_keys['secret_key']
+
+STRIPE_SECRET_KEY = ''
+PUBLISHABLE_SECRET_KEY = ''
+CURRENCY = 'usd' # Change it if you need
+
+if not STRIPE_SECRET_KEY:
+    print("Please provide STRIPE_SECRET_KEY")
+    exit(-1)
+
+if not PUBLISHABLE_SECRET_KEY:
+    print("Please provide PUBLISHABLE_SECRET_KEY ")
+    exit(-1)
+
+stripe.api_key = STRIPE_SECRET_KEY
 
 # Provide your domain name here
 YOUR_DOMAIN = 'http://localhost:5000'
@@ -43,7 +51,7 @@ def index():
             cancel_url=YOUR_DOMAIN + '/cancel',
         )
 
-        return render_template('checkout.html', key=stripe_keys['publishable_key'],
+        return render_template('checkout.html', key=PUBLISHABLE_SECRET_KEY,
                                amount=amount, currency=CURRENCY.upper(),
                                checkout_session_id=checkout_session.id)
     return render_template("index.html")
